@@ -46,9 +46,9 @@ export class AuthController {
   /**
    * JwtAuthGuardのテスト用
    */
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   authTest() {
-    console.log('authorized');
+    return 'sssssssssssssssss';
   }
 }

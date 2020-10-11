@@ -7,6 +7,12 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log('sdsd');
     return this.appService.getHello();
+  }
+  @Get('/regist')
+  registUser(@Body() req): any {
+    const testUser = { id: 'testID', userName: 'testName' };
+    return testUser;
   }
 }
