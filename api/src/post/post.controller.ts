@@ -8,7 +8,9 @@ import {
   Get,
   Put,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guards';
 import { CreateOrUpdateRequest } from './dto/createOrUpdateRequest';
 import { PostService } from './post.service';
 
@@ -16,6 +18,7 @@ import { PostService } from './post.service';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getPosts(@Query('userId') userId: number) {
     return await this.postService.getPosts(userId).catch(err => {
@@ -23,6 +26,7 @@ export class PostController {
     });
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('/:id')
   async createPost(
     @Body(ValidationPipe)
@@ -36,6 +40,7 @@ export class PostController {
     return post;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put('/:id')
   async updatePost(
     @Body(ValidationPipe)
@@ -49,11 +54,11 @@ export class PostController {
     return post;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   async deletePost(@Param('id') id: string) {
-    const result = await this.postService.deletePosts(+id).catch(err => {
+    await this.postService.deletePosts(+id).catch(err => {
       throw new Error(err);
     });
-    return result;
   }
 }

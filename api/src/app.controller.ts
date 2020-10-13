@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -7,12 +7,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    console.log('sdsd');
     return this.appService.getHello();
-  }
-  @Get('/regist')
-  registUser(@Body() req): any {
-    const testUser = { id: 'testID', userName: 'testName' };
-    return testUser;
   }
 }

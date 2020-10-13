@@ -27,11 +27,7 @@
 
 <script>
 export default {
-  async asyncData({ $axios }) {
-    const response = await $axios.$get('/api/auth')
-    console.log(response)
-    return response
-  },
+  // auth: false,
 }
 </script>
 

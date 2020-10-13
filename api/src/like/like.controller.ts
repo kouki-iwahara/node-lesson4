@@ -1,4 +1,11 @@
-import { Body, Controller, Patch, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Patch,
+  UseGuards,
+  ValidationPipe,
+} from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guards';
 import { SwitchLikeRequest } from './dto/switchLikeRequest';
 import { LikeService } from './like.service';
 
@@ -6,6 +13,7 @@ import { LikeService } from './like.service';
 export class LikeController {
   constructor(private likeService: LikeService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Patch()
   async swithLike(@Body(ValidationPipe) param: SwitchLikeRequest) {
     const like = await this.likeService.switchLike(param).catch(err => {

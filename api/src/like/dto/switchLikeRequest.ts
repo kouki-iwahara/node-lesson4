@@ -2,8 +2,8 @@ import { IsEmail, IsNotEmpty, IsString, IsBoolean } from 'class-validator';
 
 export class SwitchLikeRequest {
   @IsNotEmpty()
-  userId: string;
+  userId: number;
 
   @IsNotEmpty()
-  postId: string;
+  postId: number;
 }

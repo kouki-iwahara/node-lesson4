@@ -33,10 +33,12 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/proxy',
+    '@nuxtjs/auth',
   ],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
+    baseURL: '/api',
     proxy: true,
   },
   proxy: {
@@ -48,4 +50,39 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  auth: {
+    // token: {
+    //   prefix: '_token.',
+    // },
+    // localStorage: {
+    //   prefix: 'auth.',
+    // },
+    // cookie: false,
+    redirect: {
+      login: '/login', // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
+      logout: '/login', // ログアウト時のリダイレクトURL
+      callback: false, // Oauth認証等で必要となる コールバックルート
+      home: '/post/',
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: 'api/auth/login',
+            method: 'post',
+            propertyName: 'accessToken',
+          },
+          logout: false,
+          user: { url: '/api/auth/me', method: 'get', propertyName: false },
+          tokenType: 'bearer',
+          tokenRequired: true,
+        },
+      },
+    },
+  },
+  router: {
+    // これで任意のページがレンダリングされる前にuser_authが呼ばれる
+    middleware: ['auth'],
+  },
 }

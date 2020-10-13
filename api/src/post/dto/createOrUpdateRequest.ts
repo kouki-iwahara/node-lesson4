@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, IsBoolean } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, IsBoolean, Max } from 'class-validator';
 
 export class CreateOrUpdateRequest {
   id: number;
@@ -6,6 +6,7 @@ export class CreateOrUpdateRequest {
   @IsNotEmpty()
   title: string;
 
+  @Max(140)
   @IsNotEmpty()
   content: string;
 

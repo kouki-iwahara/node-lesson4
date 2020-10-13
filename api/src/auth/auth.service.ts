@@ -44,6 +44,7 @@ export class AuthService {
     const user = await this.userRepository.findOne({ email }).catch(err => {
       throwError(err);
     });
+
     if (!user || !bcrypt.compareSync(password, user.password)) {
       return null;
     }
@@ -60,5 +61,12 @@ export class AuthService {
 
   private getJwtExpTime(): string {
     return `${this.configService.get('JWT_EXPIRATION_TIME')}day`;
+  }
+
+  async getLoggedInUser(userId: number) {
+    const user = this.userRepository.findOne({ id: userId }).catch(err => {
+      throw new Error(err);
+    });
+    return user;
   }
 }
